@@ -106,6 +106,11 @@
       <div class="input-field col m2 s12">
         <select id="anio">
           <option disabled selected>Año</option>
+          <option value="1960">1955</option>
+          <option value="1960">1956</option>
+          <option value="1960">1957</option>
+          <option value="1960">1958</option>
+          <option value="1960">1959</option>
           <option value="1960">1960</option>
           <option value="1961">1961</option>
           <option value="1962">1962</option>
