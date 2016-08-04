@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-07-26 04:14:20
+/* Smarty version 3.1.29, created on 2016-08-04 17:20:29
   from "C:\xampp\htdocs\raizimaginaria\styles\templates\public\signup.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5796c77c0e01f2_52836133',
+  'unifunc' => 'content_57a3a38dc519e3_26271255',
   'file_dependency' => 
   array (
     'b6f7070668a34ad1a3c21e0ccfe033dd9cafc7cc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\raizimaginaria\\styles\\templates\\public\\signup.tpl',
-      1 => 1469499256,
+      1 => 1470342028,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:main/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5796c77c0e01f2_52836133 ($_smarty_tpl) {
+function content_57a3a38dc519e3_26271255 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -77,6 +77,11 @@ function content_5796c77c0e01f2_52836133 ($_smarty_tpl) {
           <option value="raiz" data-icon="styles/img/raiz.jpg" class="circle">Un árbol</option>
         </select>
         <label for="">Selecciona</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m2 s12 offset-m3">
+        <label>Fecha de nacimiento:</label>
       </div>
     </div>
     <div class="row">
@@ -136,6 +141,11 @@ function content_5796c77c0e01f2_52836133 ($_smarty_tpl) {
       <div class="input-field col m2 s12">
         <select id="anio">
           <option disabled selected>Año</option>
+          <option value="1960">1955</option>
+          <option value="1960">1956</option>
+          <option value="1960">1957</option>
+          <option value="1960">1958</option>
+          <option value="1960">1959</option>
           <option value="1960">1960</option>
           <option value="1961">1961</option>
           <option value="1962">1962</option>
@@ -207,13 +217,23 @@ function content_5796c77c0e01f2_52836133 ($_smarty_tpl) {
 
 <?php echo '<script'; ?>
 >
-  window.onload = function() {
-    //materialize
-    $('.datepicker').pickadate({
-      selectMonths: true,
-      selectYears: 20
-    });
+
+  $(function(){
     $('select').material_select();
+
+    $('#enviar').on('click', function () {
+      var result;
+      var aviso = $('#aviso');
+      result = "<div class='chip amber white-text'>Procesando...";
+      result += "<i class='material-icons'>close</i></div>";
+      aviso.html(result);
+
+    });
+  });
+
+
+  window.onload = function() {
+
 
     document.getElementById('enviar').onclick = function() {
       var connect, username, password, correo, dia, mes, anio, avatar, form, result;

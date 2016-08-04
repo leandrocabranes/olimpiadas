@@ -50,6 +50,11 @@
       </div>
     </div>
     <div class="row">
+      <div class="col m2 s12 offset-m3">
+        <label>Fecha de nacimiento:</label>
+      </div>
+    </div>
+    <div class="row">
       <div class="input-field col m2 s12 offset-m3">
         <select id="dia">
           <option disabled selected>Día</option>
@@ -179,73 +184,59 @@
 {include 'main/footer.tpl'}
 
 <script>
-  window.onload = function() {
-    //materialize
-    $('.datepicker').pickadate({
-      selectMonths: true,
-      selectYears: 20
-    });
+
+  $(function(){
     $('select').material_select();
 
-    document.getElementById('enviar').onclick = function() {
-      var connect, username, password, correo, dia, mes, anio, avatar, form, result;
-      username = document.getElementById('username').value;
-      password = document.getElementById('password').value;
-      correo = document.getElementById('correo').value;
-      dia = document.getElementById('dia').value;
-      mes = document.getElementById('mes').value;
-      anio = document.getElementById('anio').value;
-      avatar = document.getElementById('avatar').value;
+    $('#enviar').on('click', function () {
+      var result, username, password, correo, dia, mes, anio, avatar, form;
+      var aviso = $('#aviso');
+      result = "<div class='chip amber white-text'>Procesando...";
+      result += "<i class='material-icons'>close</i></div>";
+      aviso.html(result);
 
-      if (username != '' && password != '') {
+      username = $('#username').val(), password = $('password').val();
+      correo = $('#correo').val(), dia = $('#dia').val(), mes = $('#mes').val();
+      anio = $('#anio').val(), avatar = $('#avatar').val();
 
-        form = 'username=' + username + '&password=' + password + '&correo=' + correo + '&dia=' + dia + '&mes=' + mes + '&anio=' + anio + '&avatar=' + avatar;
+      if (username != '' && password != '' && correo != '' && dia != '' mes != '' anio != '' && avatar != '') {
+        form = 'username=' + username + '&password=' + password + '&correo=' + correo;
+        form += '&dia=' + dia + '&mes=' + mes + '&anio=' anio + '&avatar=' + avatar;
 
-        connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        connect.onreadystatechange = function() {
-          if (connect.readyState == 4 && connect.status == 200) {
-            // conexion exitosa
-            if (parseInt(connect.responseText) == 1) {
-              // conexion exitosa
-              // redireccion
+        $.ajax({
+          url: '?view=signup',
+          method: 'POST',
+          dataType: 'text',
+          data: form,
+          success: function (xhr) {
+            if (xhr == 1) {
               result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
               result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-              location.href= '?view=index';
-            } else if (parseInt(connect.responseText) == 2) {
-              // error, datos incorrectos
+              aviso.html(result);
+              setTimeout(function(){
+                location.href = 'index.php';}, 500);
+            } else if (xhr == 2) {
               result = "<div class='chip lime darken-3 white-text'>El nombre de usuario o correo ya existe";
               result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-            } else if (parseInt(connect.responseText) == 3) {
-              // error, datos incorrectos
+              aviso.html(result);
+            } else if (xhr == 3) {
               result = "<div class='chip purple darken-1 white-text'>Los campos no cumplen con los requisitos";
               result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-            } else {
-              // error, datos incorrectos
-              result = "<div class='chip red accent-3 white-text'>Ha ocurrido un error!";
-              result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
+              aviso.html(result);
             }
-          } else if (connect.readyState != 4) {
-            // procesando
-            result = "<div class='chip amber white-text'>Procesando...";
+          },
+          error: function () {
+            result = "<div class='chip red accent-3 white-text'>¡Ha ocurrido un error!";
             result += "<i class='material-icons'>close</i></div>";
-            document.getElementById('aviso').innerHTML = result;
+            aviso.html(result);
+            console.error(xhr, status, err.toString());
           }
-        }
-        connect.open('POST', '?view=signup', true);
-        connect.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        connect.send(form);
-      } else {
-        // campos vacios
-        result = "<div class='chip red white-text'>Error: el usuario y/o nombre estan vacios";
-        result += "<i class='material-icons'>close</i></div>";
-        document.getElementById('aviso').innerHTML = result;
+        });
       }
-    }
-  }
+    });
+  });
+
+
 
 </script>
 
