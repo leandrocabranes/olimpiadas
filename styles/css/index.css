@@ -1,0 +1,43 @@
+/*@import 'https://fonts.googleapis.com/css?family=Poiret+One';*/
+@import 'https://fonts.googleapis.com/css?family=Droid+Serif|Lora|Poiret+One|Slabo+27px';
+
+* {
+  /*font-family: 'Poiret One', cursive;*/
+  /*font-weight: 600;*/
+  /*font-size: 1.5rem;*/
+}
+
+p, span {
+  font-family: 'Slabo 27px', serif;
+  font-size: 1.5em;
+}
+h1 {
+  font-size: 6rem;
+}
+
+.card-content {
+  font-size: 1.4em
+}
+/*.evento {
+  border-radius: 1.4em 0.4em;
+}*/
+.hora-med {
+  font-size: 4em;
+  transform: rotate(90deg);
+  transform-origin: left top 1;
+  display: inline-block;
+  margin: 36px 0;
+}
+.fecha-med h1 {
+  font-size: 6em;
+  top: auto;
+  bottom: auto;
+}
+.descripcion-med span {
+  display: inline-block;
+  font-size: 2em;
+  margin-left: 19%;
+}
+.descripcion {
+  margin: 50px;
+}
