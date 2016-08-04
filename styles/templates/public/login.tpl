@@ -46,56 +46,58 @@
 {include 'main/footer.tpl'}
 
 <script>
-  window.onload = function() {
-    document.getElementById('enviar').onclick = function() {
-      var connect, username, password, form, result;
-      username = document.getElementById('username').value;
-      password = document.getElementById('password').value;
+
+$(function(){
+  var aviso = $('#aviso');
+    $('#enviar').on('click', function(){
+      // mostramos el cartel de espera
+      result = "<div class='chip amber white-text'>Procesando...";
+      result += "<i class='material-icons'>close</i></div>";
+      aviso.html(result);
+      //Comenzamos a procesar la información
+      var username, password, form;
+      username = $('#username').val();
+      password = $('#password').val();
 
       if (username != '' && password != '') {
-
         form = 'username=' + username + '&password=' + password;
-
-        connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        connect.onreadystatechange = function() {
-          if (connect.readyState == 4 && connect.status == 200) {
-            // conexion exitosa
-            if (parseInt(connect.responseText) == 1) {
-              // conexion exitosa
-              // redireccion
+        $.ajax({
+          url: '?view=login',
+          method: 'POST',
+          dataType: 'text',
+          data: form,
+          success: function (xhr) {
+            if (xhr == 1) {
               result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
               result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-              location.href= '?view=index';
-            } else if (parseInt(connect.responseText) == 2) {
-              // error, datos incorrectos
-              result = "<div class='chip red accent-3 white-text'>El nombre de usuario y la contraseña no coinciden";
+              aviso.html(result);
+              setTimeout(function(){
+                location.href = 'index.php';}, 500);
+            } else if (xhr == 3) {
+              result = "<div class='chip orange accent-4 white-text'>Su usuario está deshabilitado. ";
+              result += "Comuniquese con el administrador de la página ante cualquier duda.";
               result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-            } else if (parseInt(connect.responseText) == 3) {
-              // error, datos incorrectos
-              result = "<div class='chip orange darken-3 white-text'>El usuario ha sido deshabilitado.";
-              result += " Comuniquese con el administrador para resolver esto.<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
+              aviso.html(result);
+            } else if (xhr == 2) {
+              result = "<div class='chip red accent-4 white-text'>El usuario y contraseña no coinciden ";
+              result += "<i class='material-icons'>close</i></div>";
+              aviso.html(result);
             }
-          } else if (connect.readyState != 4) {
-            // procesando
-            result = "<div class='chip amber white-text'>Procesando...";
+          },
+          error: function () {
+            result = "<div class='chip red accent-3 white-text'>¡Ha ocurrido un error!";
             result += "<i class='material-icons'>close</i></div>";
-            document.getElementById('aviso').innerHTML = result;
+            aviso.html(result);
+            console.error(xhr, status, err.toString());
           }
-        }
-        connect.open('POST', '?view=login', true);
-        connect.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        connect.send(form);
+        });
       } else {
-        // campos vacios
-        result = "<div class='chip red white-text'>Error: el usuario y/o nombre estan vacios";
+        result = "<div class='chip indigo accent-3 white-text'>No deje ningún campo vacio";
         result += "<i class='material-icons'>close</i></div>";
-        document.getElementById('aviso').innerHTML = result;
+        aviso.html(result);
       }
-    }
-  }
+    });
+});
 
 </script>
 
