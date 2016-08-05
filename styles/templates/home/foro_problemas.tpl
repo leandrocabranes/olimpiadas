@@ -8,12 +8,11 @@
 <div class="container">
   <div class="row">
     <div class="col s12">
-      <h1>Foro piola</h1>
+      <h3>Problemas matemáticos</h3>
     </div>
   </div>
 </div>
 <div class="container">
-
 <table class="responsive-table">
   <thead>
     <tr>

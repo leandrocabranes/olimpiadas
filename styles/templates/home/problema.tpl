@@ -23,15 +23,16 @@
   </div>
   <div class="row">
     <div class="col s12">
-      <h3>Respuesta:</h3><br>
-      <p>{$problema.resp}</p>
+      <h3>Respuesta:</h3><button class="btn" id="ver">Ver respuesta</button><br>
+      <div id="resultado" class="oculto">{$problema.resp}</div>
     </div>
   </div>
 </div>
+<div class="divider"></div>
 <div class="container">
   <div class="row">
     <div class="col s12">
-      <h3>Comentarios:</h3>
+      <h4>Respuestas de usuarios:</h4>
     </div>
   </div>
   {if isset($resp)}
@@ -117,10 +118,22 @@
   }
 
 </script>
-
 {/if}
 
 {include 'main/footer.tpl'}
+
+<script>
+$(function(){
+  $('#ver').click(function (){
+    $('#resultado').toggleClass('oculto');
+    if ($('#ver').text() == 'Ver respuesta') {
+      $('#ver').text('Ocultar respuesta');
+    } else {
+      $('#ver').text('Ver respuesta');
+    }
+  });
+});
+</script>
 
 </body>
 </html>

@@ -41,3 +41,7 @@ h1 {
 .descripcion {
   margin: 50px;
 }
+
+.oculto {
+  display: none;
+}

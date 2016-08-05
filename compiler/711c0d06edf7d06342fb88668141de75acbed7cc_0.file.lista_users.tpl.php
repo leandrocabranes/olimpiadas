@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-07-20 19:27:28
+/* Smarty version 3.1.29, created on 2016-08-05 00:29:30
   from "C:\xampp\htdocs\raizimaginaria\styles\templates\admin\lista_users.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_578fb480b3ab35_17421694',
+  'unifunc' => 'content_57a4081a810bc7_91851094',
   'file_dependency' => 
   array (
     '711c0d06edf7d06342fb88668141de75acbed7cc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\raizimaginaria\\styles\\templates\\admin\\lista_users.tpl',
-      1 => 1469035605,
+      1 => 1469498884,
       2 => 'file',
     ),
   ),
@@ -19,11 +19,10 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
     'file:main/head.tpl' => 1,
     'file:main/header.tpl' => 1,
-    'file:main/nav.tpl' => 1,
     'file:main/footer.tpl' => 1,
   ),
 ),false)) {
-function content_578fb480b3ab35_17421694 ($_smarty_tpl) {
+function content_57a4081a810bc7_91851094 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,10 +32,6 @@ function content_578fb480b3ab35_17421694 ($_smarty_tpl) {
 <body>
 
 <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:main/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
-
-
-<?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:main/nav.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
 

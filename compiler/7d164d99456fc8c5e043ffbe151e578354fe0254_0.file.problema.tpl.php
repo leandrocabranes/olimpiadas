@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-08-04 01:38:13
+/* Smarty version 3.1.29, created on 2016-08-05 00:26:34
   from "C:\xampp\htdocs\raizimaginaria\styles\templates\home\problema.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57a2c6b5f19cf5_42215128',
+  'unifunc' => 'content_57a4076a5222f8_16947647',
   'file_dependency' => 
   array (
     '7d164d99456fc8c5e043ffbe151e578354fe0254' => 
     array (
       0 => 'C:\\xampp\\htdocs\\raizimaginaria\\styles\\templates\\home\\problema.tpl',
-      1 => 1470285492,
+      1 => 1470367592,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:main/footer.tpl' => 1,
   ),
 ),false)) {
-function content_57a2c6b5f19cf5_42215128 ($_smarty_tpl) {
+function content_57a4076a5222f8_16947647 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -57,16 +57,17 @@ function content_57a2c6b5f19cf5_42215128 ($_smarty_tpl) {
   </div>
   <div class="row">
     <div class="col s12">
-      <h3>Respuesta:</h3><br>
-      <p><?php echo $_smarty_tpl->tpl_vars['problema']->value['resp'];?>
-</p>
+      <h3>Respuesta:</h3><button class="btn" id="ver">Ver respuesta</button><br>
+      <div id="resultado" class="oculto"><?php echo $_smarty_tpl->tpl_vars['problema']->value['resp'];?>
+</div>
     </div>
   </div>
 </div>
+<div class="divider"></div>
 <div class="container">
   <div class="row">
     <div class="col s12">
-      <h3>Comentarios:</h3>
+      <h4>Respuestas de usuarios:</h4>
     </div>
   </div>
   <?php if (isset($_smarty_tpl->tpl_vars['resp']->value)) {?>
@@ -176,12 +177,26 @@ $_smarty_tpl->tpl_vars['rsp'] = $__foreach_rsp_0_saved_item;
 
 <?php echo '</script'; ?>
 >
-
 <?php }?>
 
 <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:main/footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
+
+<?php echo '<script'; ?>
+>
+$(function(){
+  $('#ver').click(function (){
+    $('#resultado').toggleClass('oculto');
+    if ($('#ver').text() == 'Ver respuesta') {
+      $('#ver').text('Ocultar respuesta');
+    } else {
+      $('#ver').text('Ver respuesta');
+    }
+  });
+});
+<?php echo '</script'; ?>
+>
 
 </body>
 </html>
