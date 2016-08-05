@@ -187,57 +187,83 @@
 
   $(function(){
     $('select').material_select();
+    var result, alerta, username, password, correo, dia, mes, anio, avatar, form;
+    var user_len, pass_len, mail_arr, mail_pnt;
+    var aviso = $('#aviso');
 
     $('#enviar').on('click', function () {
-      var result, username, password, correo, dia, mes, anio, avatar, form;
-      var aviso = $('#aviso');
+      // declaramos nuestras variables;
       result = "<div class='chip amber white-text'>Procesando...";
       result += "<i class='material-icons'>close</i></div>";
       aviso.html(result);
 
-      username = $('#username').val(), password = $('password').val();
+      username = $('#username').val(), password = $('#password').val();
       correo = $('#correo').val(), dia = $('#dia').val(), mes = $('#mes').val();
       anio = $('#anio').val(), avatar = $('#avatar').val();
 
-      if (username != '' && password != '' && correo != '' && dia != '' mes != '' anio != '' && avatar != '') {
-        form = 'username=' + username + '&password=' + password + '&correo=' + correo;
-        form += '&dia=' + dia + '&mes=' + mes + '&anio=' anio + '&avatar=' + avatar;
+      val = true;
+      alerta_com = "<div class='chip purple accent-4 white-text'>";
+      alerta_fin = "<i class='material-icons'>close</i></div>";
+      alerta = alerta_com + "Se han encontrado los siguientes problemas:" + alerta_fin;
+      user_len = username.length;
+      pass_len = password.length;
+      mail_arr = correo.indexOf('@');
+      mail_pnt = correo.lastIndexOf('.');
+      if (user_len < 6 || user_len > 20) {
+        alerta += alerta_com + "El nombre de usuario debe tener entre 6 y 20 caracteres" + alerta_fin;
+        val = false;
+      } if (mail_arr < 1 || mail_pnt < mail_arr+2 || mail_pnt+2 > correo.length) {
+        alerta += alerta_com + "El formato del correo electrónico no es válido" + alerta_fin;
+        val = false;
+      } if (pass_len < 6 || pass_len > 20) {
+        alerta += alerta_com + "La contraseña debe tener entre 6 y 20 caracteres" + alerta_fin;
+        val = false;
+      }
 
-        $.ajax({
-          url: '?view=signup',
-          method: 'POST',
-          dataType: 'text',
-          data: form,
-          success: function (xhr) {
-            if (xhr == 1) {
-              result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
+      if (username != '' && password != '' && correo != '' && dia != '' && mes != '' && anio != '' && avatar != '') {
+        if (val == true) {
+          form = 'username=' + username + '&password=' + password + '&correo=' + correo;
+          form += '&dia=' + dia + '&mes=' + mes + '&anio=' + anio + '&avatar=' + avatar;
+
+          $.ajax({
+            url: '?view=signup',
+            method: 'POST',
+            dataType: 'text',
+            data: form,
+            success: function (xhr) {
+              if (xhr == 1) {
+                result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
+                result += "<i class='material-icons'>close</i></div>";
+                aviso.html(result);
+                setTimeout(function(){
+                  location.href = 'index.php';}, 500);
+              } else if (xhr == 2) {
+                result = "<div class='chip lime darken-3 white-text'>El nombre de usuario o correo ya existe";
+                result += "<i class='material-icons'>close</i></div>";
+                aviso.html(result);
+              } else if (xhr == 3) {
+                result = "<div class='chip purple darken-1 white-text'>Los campos no cumplen con los requisitos";
+                result += "<i class='material-icons'>close</i></div>";
+                aviso.html(result);
+              }
+            },
+            error: function () {
+              result = "<div class='chip red accent-3 white-text'>¡Ha ocurrido un error!";
               result += "<i class='material-icons'>close</i></div>";
               aviso.html(result);
-              setTimeout(function(){
-                location.href = 'index.php';}, 500);
-            } else if (xhr == 2) {
-              result = "<div class='chip lime darken-3 white-text'>El nombre de usuario o correo ya existe";
-              result += "<i class='material-icons'>close</i></div>";
-              aviso.html(result);
-            } else if (xhr == 3) {
-              result = "<div class='chip purple darken-1 white-text'>Los campos no cumplen con los requisitos";
-              result += "<i class='material-icons'>close</i></div>";
-              aviso.html(result);
+              console.error(xhr, status, err.toString());
             }
-          },
-          error: function () {
-            result = "<div class='chip red accent-3 white-text'>¡Ha ocurrido un error!";
-            result += "<i class='material-icons'>close</i></div>";
-            aviso.html(result);
-            console.error(xhr, status, err.toString());
-          }
-        });
+          });
+        } else {
+          aviso.html(alerta);
+        }
+      } else {
+        result = "<div class='chip red accent-3 white-text'>No deje ningún campo vacio (asegurese de haber elegido un avatar)";
+        result += "<i class='material-icons'>close</i></div>";
+        aviso.html(result);
       }
     });
   });
-
-
-
 </script>
 
 </body>

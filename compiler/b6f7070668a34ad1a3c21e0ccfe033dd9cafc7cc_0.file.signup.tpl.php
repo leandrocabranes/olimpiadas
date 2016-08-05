@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-08-04 17:20:29
+/* Smarty version 3.1.29, created on 2016-08-04 21:28:33
   from "C:\xampp\htdocs\raizimaginaria\styles\templates\public\signup.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57a3a38dc519e3_26271255',
+  'unifunc' => 'content_57a3ddb1d31135_39372637',
   'file_dependency' => 
   array (
     'b6f7070668a34ad1a3c21e0ccfe033dd9cafc7cc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\raizimaginaria\\styles\\templates\\public\\signup.tpl',
-      1 => 1470342028,
+      1 => 1470356912,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:main/footer.tpl' => 1,
   ),
 ),false)) {
-function content_57a3a38dc519e3_26271255 ($_smarty_tpl) {
+function content_57a3ddb1d31135_39372637 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -220,81 +220,84 @@ function content_57a3a38dc519e3_26271255 ($_smarty_tpl) {
 
   $(function(){
     $('select').material_select();
+    var result, alerta, username, password, correo, dia, mes, anio, avatar, form;
+    var user_len, pass_len, mail_arr, mail_pnt;
+    var aviso = $('#aviso');
 
     $('#enviar').on('click', function () {
-      var result;
-      var aviso = $('#aviso');
+      // declaramos nuestras variables;
       result = "<div class='chip amber white-text'>Procesando...";
       result += "<i class='material-icons'>close</i></div>";
       aviso.html(result);
 
+      username = $('#username').val(), password = $('#password').val();
+      correo = $('#correo').val(), dia = $('#dia').val(), mes = $('#mes').val();
+      anio = $('#anio').val(), avatar = $('#avatar').val();
+
+      val = true;
+      alerta_com = "<div class='chip purple accent-4 white-text'>";
+      alerta_fin = "<i class='material-icons'>close</i></div>";
+      alerta = alerta_com + "Se han encontrado los siguientes problemas:" + alerta_fin;
+      user_len = username.length;
+      pass_len = password.length;
+      mail_arr = correo.indexOf('@');
+      mail_pnt = correo.lastIndexOf('.');
+      if (user_len < 6 || user_len > 20) {
+        alerta += alerta_com + "El nombre de usuario debe tener entre 6 y 20 caracteres" + alerta_fin + "<br />";
+        val = false;
+      } if (mail_arr < 1 || mail_pnt < mail_arr+2 || mail_pnt+2 > correo.length) {
+        alerta += alerta_com + "El formato del correo electrónico no es válido" + alerta_fin + "<br />";
+        val = false;
+      } if (pass_len < 6 || pass_len > 20) {
+        alerta += alerta_com + "La contraseña debe tener entre 6 y 20 caracteres" + alerta_fin + "<br />";
+        val = false;
+      }
+
+      if (username != '' && password != '' && correo != '' && dia != '' && mes != '' && anio != '' && avatar != '') {
+        if (val == true) {
+          form = 'username=' + username + '&password=' + password + '&correo=' + correo;
+          form += '&dia=' + dia + '&mes=' + mes + '&anio=' + anio + '&avatar=' + avatar;
+
+          $.ajax({
+            url: '?view=signup',
+            method: 'POST',
+            dataType: 'text',
+            data: form,
+            success: function (xhr) {
+              if (xhr == 1) {
+                result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
+                result += "<i class='material-icons'>close</i></div>";
+                aviso.html(result);
+                setTimeout(function(){
+                  location.href = 'index.php';}, 500);
+                } else if (xhr == 2) {
+                  result = "<div class='chip lime darken-3 white-text'>El nombre de usuario o correo ya existe";
+                  result += "<i class='material-icons'>close</i></div>";
+                  aviso.html(result);
+                } else if (xhr == 3) {
+                  result = "<div class='chip purple darken-1 white-text'>Los campos no cumplen con los requisitos";
+                  result += "<i class='material-icons'>close</i></div>";
+                  aviso.html(result);
+                }
+              },
+              error: function () {
+                result = "<div class='chip red accent-3 white-text'>¡Ha ocurrido un error!";
+                result += "<i class='material-icons'>close</i></div>";
+                aviso.html(result);
+                console.error(xhr, status, err.toString());
+              }
+            });
+
+        } else {
+          aviso.html(alerta);
+        }
+      } else {
+        result = "<div class='chip red accent-3 white-text'>No deje ningún campo vacio (asegurese de haber elegido un avatar)";
+        result += "<i class='material-icons'>close</i></div>";
+        aviso.html(result);
+      }
     });
   });
-
-
-  window.onload = function() {
-
-
-    document.getElementById('enviar').onclick = function() {
-      var connect, username, password, correo, dia, mes, anio, avatar, form, result;
-      username = document.getElementById('username').value;
-      password = document.getElementById('password').value;
-      correo = document.getElementById('correo').value;
-      dia = document.getElementById('dia').value;
-      mes = document.getElementById('mes').value;
-      anio = document.getElementById('anio').value;
-      avatar = document.getElementById('avatar').value;
-
-      if (username != '' && password != '') {
-
-        form = 'username=' + username + '&password=' + password + '&correo=' + correo + '&dia=' + dia + '&mes=' + mes + '&anio=' + anio + '&avatar=' + avatar;
-
-        connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        connect.onreadystatechange = function() {
-          if (connect.readyState == 4 && connect.status == 200) {
-            // conexion exitosa
-            if (parseInt(connect.responseText) == 1) {
-              // conexion exitosa
-              // redireccion
-              result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
-              result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-              location.href= '?view=index';
-            } else if (parseInt(connect.responseText) == 2) {
-              // error, datos incorrectos
-              result = "<div class='chip lime darken-3 white-text'>El nombre de usuario o correo ya existe";
-              result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-            } else if (parseInt(connect.responseText) == 3) {
-              // error, datos incorrectos
-              result = "<div class='chip purple darken-1 white-text'>Los campos no cumplen con los requisitos";
-              result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-            } else {
-              // error, datos incorrectos
-              result = "<div class='chip red accent-3 white-text'>Ha ocurrido un error!";
-              result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-            }
-          } else if (connect.readyState != 4) {
-            // procesando
-            result = "<div class='chip amber white-text'>Procesando...";
-            result += "<i class='material-icons'>close</i></div>";
-            document.getElementById('aviso').innerHTML = result;
-          }
-        }
-        connect.open('POST', '?view=signup', true);
-        connect.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        connect.send(form);
-      } else {
-        // campos vacios
-        result = "<div class='chip red white-text'>Error: el usuario y/o nombre estan vacios";
-        result += "<i class='material-icons'>close</i></div>";
-        document.getElementById('aviso').innerHTML = result;
-      }
-    }
-  }
-
 <?php echo '</script'; ?>
 >
 
