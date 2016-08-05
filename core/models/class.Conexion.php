@@ -83,7 +83,7 @@ class Conexion {
   public function crear_usuario ($con) {
     $hash = password_hash($this->password, PASSWORD_DEFAULT);
     $query = $con->prepare("INSERT INTO usuarios (username, password, correo, fecha_nacimiento, avatar, permisos, activo)
-    VALUES (:username, :password, :correo, :fecha_nacimiento, :avatar, 1, 1)");
+    VALUES (:username, :password, :correo, :fecha_nacimiento, :avatar, 1, 'A')");
     $query->bindParam(":username", $this->username);
     $query->bindParam(":password", $hash);
     $query->bindParam(":correo", $this->correo);

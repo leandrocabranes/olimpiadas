@@ -88,60 +88,47 @@
 {include 'main/footer.tpl'}
 
 <script>
-  window.onload = function() {
 
-    document.getElementById('enviar').onclick = function() {
-      var connect, fecha_e, hora, minuto, descripcion, lugar, form, result;
-      fecha_e = document.getElementById('fecha_e').value;
-      descripcion = document.getElementById('descripcion').value;
-      lugar = document.getElementById('lugar').value;
-      hora = document.getElementById('hora').value;
-      minuto = document.getElementById('minuto').value;
+$(function () {
+  var aviso = $('#aviso');
+  $('#enviar').on('click', function () {
+    result = "<div class='chip amber white-text'>Procesando...";
+    result += "<i class='material-icons'>close</i></div>";
+    aviso.html(result);
 
-      if (fecha_e != '' && descripcion != '' && lugar != '' && hora != '' && minuto != '') {
-
-        form = 'fecha_e=' + fecha_e + '&descripcion=' + descripcion + '&lugar=' + lugar + '&hora=' + hora + '&minuto=' + minuto;
-
-        connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        connect.onreadystatechange = function() {
-          if (connect.readyState == 4 && connect.status == 200) {
-            // conexion exitosa
-            if (parseInt(connect.responseText) == 1) {
-              // conexion exitosa
-              // redireccion
-              result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
-              result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-              location.href= '?view=admin&admin=contenido&contenido=calendario';
-            } else if (parseInt(connect.responseText) == 2) {
-              // error, datos incorrectos
-              result = "<div class='chip lime darken-3 white-text'>El nombre de usuario o correo ya existe";
-              result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-            } else {
-              // error, datos incorrectos
-              result = "<div class='chip red accent-3 white-text'>Ha ocurrido un error!";
-              result += "<i class='material-icons'>close</i></div>";
-              document.getElementById('aviso').innerHTML = result;
-            }
-          } else if (connect.readyState != 4) {
-            // procesando
-            result = "<div class='chip amber white-text'>Procesando...";
+    var fecha_e = $('#fecha_e').val(), hora = $('#hora').val(), lugar = $('#lugar').val();
+    var minuto = $('#minuto').val(), descripcion = $('#minuto').val(), form = "";
+    if (fecha_e != '' && hora != '' && lugar != '' && minuto != '' descripcion != '') {
+      form = 'fecha_e=' + fecha_e + '&descripcion=' + descripcion + '&lugar=' + lugar + '&hora=' + hora + '&minuto=' + minuto;
+      $.ajax({
+        url: '?view=postear&postear=evento',
+        method: 'POST',
+        dataType: 'text',
+        data: form,
+        success: function (xhr) {
+          if (xhr == 1) {
+            result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
             result += "<i class='material-icons'>close</i></div>";
-            document.getElementById('aviso').innerHTML = result;
+            aviso.html(result);
+            setTimeout(function(){
+              location.href = 'index.php';}, 500);
           }
+        },
+        error: function () {
+          result = "<div class='chip red accent-3 white-text'>¡Ha ocurrido un error!";
+          result += "<i class='material-icons'>close</i></div>";
+          aviso.html(result);
+          console.error(xhr, status, err.toString());
         }
-        connect.open('POST', '?view=postear&postear=evento', true);
-        connect.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        connect.send(form);
-      } else {
-        // campos vacios
-        result = "<div class='chip red white-text'>Error: el titulo y/o contenido estan vacios";
-        result += "<i class='material-icons'>close</i></div>";
-        document.getElementById('aviso').innerHTML = result;
-      }
+      });
+    } else {
+      result = "<div class='chip indigo accent-3 white-text'>No deje ningún campo vacio";
+      result += "<i class='material-icons'>close</i></div>";
+      aviso.html(result);
     }
-  }
+  });
+
+});
 
 </script>
 

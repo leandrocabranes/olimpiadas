@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-08-05 10:13:17
+/* Smarty version 3.1.29, created on 2016-08-05 11:10:26
   from "D:\Programas\XAMPP\htdocs\olimpiadas\styles\templates\public\login.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57a490ed414021_35502099',
+  'unifunc' => 'content_57a49e524fee56_98648485',
   'file_dependency' => 
   array (
     '592f31b02e764442ac29d2ec2714248496fe0296' => 
     array (
       0 => 'D:\\Programas\\XAMPP\\htdocs\\olimpiadas\\styles\\templates\\public\\login.tpl',
-      1 => 1470402794,
+      1 => 1470405464,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:main/footer.tpl' => 1,
   ),
 ),false)) {
-function content_57a490ed414021_35502099 ($_smarty_tpl) {
+function content_57a49e524fee56_98648485 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,7 +30,6 @@ function content_57a490ed414021_35502099 ($_smarty_tpl) {
 ?>
 
 <body>
-
 <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:main/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -134,7 +133,6 @@ $(function(){
 
 <?php echo '</script'; ?>
 >
-
 </body>
 </html>
 <?php }

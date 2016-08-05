@@ -2,7 +2,6 @@
 <html lang="es">
 {include 'main/head.tpl'}
 <body>
-
 {include 'main/header.tpl'}
 
 <div class="container">
@@ -100,6 +99,5 @@ $(function(){
 });
 
 </script>
-
 </body>
 </html>
