@@ -68,48 +68,48 @@
     </div>
   </div>
 </div>
-    <script>
-      window.onload = function() {
-        document.getElementById('enviar').onclick = function() {
-          var connect, comentario, form, result;
-          comentario = document.getElementById('comentario').value;
+<script>
 
-          if (comentario != '') {
+$(function () {
+  var aviso = $('#aviso'), result = "";
+  $('#enviar').on('click'. function () {
+    result = "<div class='chip amber white-text'>Procesando...";
+    result += "<i class='material-icons'>close</i></div>";
+    aviso.html(result);
 
-            form = 'comentario=' + comentario;
-
-            connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            connect.onreadystatechange = function() {
-              if (connect.readyState == 4 && connect.status == 200) {
-                // conexion exitosa
-                if (parseInt(connect.responseText) == 1) {
-                  // conexion exitosa
-                  // redireccion
-                  result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
-                  result += "<i class='material-icons'>close</i></div>";
-                  document.getElementById('aviso').innerHTML = result;
-                  location.href= '?view=foro&post={$smarty.get.post}';
-                }
-              } else if (connect.readyState != 4) {
-                // procesando
-                result = "<div class='chip amber white-text'>Procesando...";
-                result += "<i class='material-icons'>close</i></div>";
-                document.getElementById('aviso').innerHTML = result;
-              }
-            }
-            connect.open('POST', '?view=foro&post={$smarty.get.post}', true);
-            connect.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            connect.send(form);
-          } else {
-            // campos vacios
-            result = "<div class='chip red white-text'>Error: el comentario está vacio";
+    var comentario, form;
+    comentario = $('#comentario').val();
+    if (comentario != '') {
+      form = 'comentario=' + comentario;
+      $.ajax({
+        url: '?view=foro&post={$smarty.get.post}',
+        method: 'POST',
+        dataType: 'text',
+        data: form,
+        success: function (xhr) {
+          if (xhr == 1) {
+            result = "<div class='chip green accent-4 white-text'>Conectado! Espere por favor...";
             result += "<i class='material-icons'>close</i></div>";
-            document.getElementById('aviso').innerHTML = result;
+            aviso.html(result);
+            setTimeout(function(){
+              location.href = 'index.php';}, 500);
           }
+        },
+        error: function () {
+          result = "<div class='chip red accent-3 white-text'>¡Ha ocurrido un error!";
+          result += "<i class='material-icons'>close</i></div>";
+          aviso.html(result);
+          console.error(xhr, status, err.toString());
         }
-      }
-
-    </script>
+      });
+    } else {
+      result = "<div class='chip indigo accent-3 white-text'>No deje ningún campo vacio";
+      result += "<i class='material-icons'>close</i></div>";
+      aviso.html(result);
+    }
+  })
+});
+</script>
 
 {/if}
 
