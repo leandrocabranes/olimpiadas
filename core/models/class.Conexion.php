@@ -24,7 +24,7 @@ class Conexion {
   private $conn;
 
   public function conectar () {
-    $this->conn = new PDO("mysql:host=localhost; dbname=raiz_imaginaria", "root", "");
+    $this->conn = new PDO("mysql:host=localhost; dbname=raiz_imaginaria", "root", "0q30e615W");
     $this->conn->setAttribute(PDO::ATTR_ERRMODE,  PDO::ERRMODE_EXCEPTION);
     return $this->conn;
   }
