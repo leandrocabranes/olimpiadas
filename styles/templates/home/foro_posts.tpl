@@ -21,7 +21,6 @@
       <th data-field="contenido">Contenido</th>
       <th data-field="autor">Autor</th>
       <th data-field="fecha">Fecha</th>
-      <th data-field="puntos">Puntos</th>
     </tr>
   </thead>
   <tbody>
@@ -31,7 +30,6 @@
       <td style="width: 300px" class="truncate">{$pt.contenido}</td>
       <td><a href="?view=perfil&user={$pt.id_autor}">{$pt.autor}</a></td>
       <td>{$pt.fecha}</td>
-      <td>{$pt.puntos}</td>
     </tr>
     {/foreach}
   </tbody>

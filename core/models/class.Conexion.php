@@ -149,7 +149,7 @@ class Conexion {
 
   public function crear_post ($con, $autor) {
     $query = $con->prepare("INSERT INTO posts (titulo, autor, contenido, puntos, video)
-    VALUES (:titulo, :autor, :contenido, 0, :video)");
+    VALUES (:titulo, :autor, :contenido, :video)");
     $query->bindParam(":titulo", $this->titulo);
     $query->bindParam(":autor", $autor);
     $query->bindParam(":contenido", $this->contenido);

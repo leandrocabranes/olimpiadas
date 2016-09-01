@@ -20,9 +20,6 @@
     <div class="col s12">
       <p>{$post.contenido}</p>
     </div>
-    <div class="col s12">
-      <h4>Puntos: {$post.puntos}</h4>
-    </div>
   </div>
 </div>
 <div class="container">

@@ -22,7 +22,6 @@ if (isset($_GET['post'])) {
         'autor' => $autor['username'],
         'contenido' => $seleccion_post['contenido'],
         'fecha' => $fecha[0],
-        'puntos' => $seleccion_post['puntos'],
         'video' => $seleccion_post['video']
       );
       $comentarios = $db->id_comentarios($conexion, $seleccion_post['id']);
@@ -56,7 +55,6 @@ if (isset($_GET['post'])) {
       'autor' => $autor['username'],
       'contenido' => $value['contenido'],
       'fecha' => $fecha[0],
-      'puntos' => $value['puntos']
     );
   }
   $template->assign('posts', $posts);

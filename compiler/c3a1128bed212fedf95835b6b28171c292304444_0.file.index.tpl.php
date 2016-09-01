@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-08-04 14:32:56
+/* Smarty version 3.1.29, created on 2016-08-05 13:54:59
   from "D:\Programas\XAMPP\htdocs\olimpiadas\styles\templates\home\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57a37c48f1e453_42282794',
+  'unifunc' => 'content_57a4c4e3096297_35879564',
   'file_dependency' => 
   array (
     'c3a1128bed212fedf95835b6b28171c292304444' => 
     array (
       0 => 'D:\\Programas\\XAMPP\\htdocs\\olimpiadas\\styles\\templates\\home\\index.tpl',
-      1 => 1470326791,
+      1 => 1470414916,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:main/footer.tpl' => 1,
   ),
 ),false)) {
-function content_57a37c48f1e453_42282794 ($_smarty_tpl) {
+function content_57a4c4e3096297_35879564 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
